@@ -1,9 +1,0 @@
-librosa
-numpy
-soundfile
-fastapi
-uvicorn[standard]
-python-multipart
-pydantic
-scipy
-fastdtw
