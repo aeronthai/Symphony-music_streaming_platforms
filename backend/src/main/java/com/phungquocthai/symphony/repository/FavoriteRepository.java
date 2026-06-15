@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.phungquocthai.symphony.entity.Favorite;
 
+import java.util.List;
+import java.util.Set;
+
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
 	@Modifying
@@ -36,5 +39,9 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
 	 @Transactional
 	 @Query(value = "DELETE FROM favorite WHERE song_id = :songId", nativeQuery = true)
 	 void deleteAllBySongId(@Param("songId") Integer songId);
-	 
+
+	@Query(value = "SELECT f.song_id FROM favorite f WHERE f.user_id = :userId AND f.song_id IN :songIds",
+			nativeQuery = true)
+	Set<Integer> findFavoritedSongIds(@Param("userId") Integer userId,
+	                                  @Param("songIds") List<Integer> songIds);
 }
