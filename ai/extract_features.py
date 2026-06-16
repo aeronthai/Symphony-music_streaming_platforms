@@ -3,7 +3,10 @@ import numpy as np
 import pickle
 from utils import extract_features
 
-AUDIO_DIRS = ["../uploads/music/normal", "../uploads/music/vip"]
+AUDIO_DIR_NORMAL = os.getenv("AUDIO_DIR_NORMAL", "../backend/uploads/music/normal")
+AUDIO_DIR_VIP = os.getenv("AUDIO_DIR_VIP", "../backend/uploads/music/vip")
+
+AUDIO_DIRS = [AUDIO_DIR_NORMAL, AUDIO_DIR_VIP]
 FEATURES_DIR = "data"
 
 os.makedirs(FEATURES_DIR, exist_ok=True)

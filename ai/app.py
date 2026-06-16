@@ -1,10 +1,11 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import shutil
 import os, pickle
 from predict import predict
 import logging
 from extract_features import extract_features
+from auth import verify_token
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ app.add_middleware(
 )
 
 @app.post('/search-humming')
-async def search_humming(file: UploadFile = File(...), top_k: int = 5):
+async def search_humming(file: UploadFile = File(...), top_k: int = 5, _: dict = Depends(verify_token)):
     if not file.filename.lower().endswith(('.mp3')):
         raise HTTPException(status_code=400, detail='Invalid file type. Only WAV or MP3 allowed.')
 
@@ -68,7 +69,7 @@ async def search_humming(file: UploadFile = File(...), top_k: int = 5):
             pass
 
 @app.post('/search-humming-detail')
-async def search_humming_detail(file: UploadFile = File(...), top_k: int = 5):
+async def search_humming_detail(file: UploadFile = File(...), top_k: int = 5, _: dict = Depends(verify_token)):
     if not file.filename.lower().endswith(('.wav', '.mp3')):
         raise HTTPException(status_code=400, detail='Invalid file type. Only WAV or MP3 allowed.')
     tmp_path = os.path.join(TEMP_DIR, f'input{os.path.splitext(file.filename)[1]}')
@@ -100,7 +101,7 @@ async def search_humming_detail(file: UploadFile = File(...), top_k: int = 5):
 
 
 @app.post("/update-model")
-async def update_model(song_path: str):
+async def update_model(song_path: str, _: dict = Depends(verify_token)):
     try:
         # Tách tên file
         song_name = os.path.basename(song_path)
@@ -141,7 +142,7 @@ async def update_model(song_path: str):
     
 
 @app.post("/remove-song")
-async def remove_song(song_path: str):
+async def remove_song(song_path: str, _: dict = Depends(verify_token)):
     try:
         # Tách tên bài hát
         song_name = os.path.basename(song_path)

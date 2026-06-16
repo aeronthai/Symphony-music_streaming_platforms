@@ -7,3 +7,5 @@ python-multipart
 pydantic
 scipy
 fastdtw
+loguru
+python-jose[cryptography]>=3.3.0
