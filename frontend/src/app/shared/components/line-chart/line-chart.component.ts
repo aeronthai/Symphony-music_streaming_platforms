@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '
 import { Chart } from 'chart.js/auto';
 import { TopSongDTO } from '../../models/TopSong.dto';
 import { ListeningStatsDTO } from '../../models/ListeningStats.dto';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-line-chart',
@@ -21,6 +22,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
 
   chart: any;
   xValues: string[] = [];
+  apiUrl = environment.apiUrl;
 
   constructor() {}
 
@@ -62,7 +64,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
             pointHoverRadius: 8,
             // song: this.topSong1.songName,
             // singer: this.topSong1.singers.map(singer => singer.stageName).join(', '),
-            // image: 'http://localhost:8080/symphony/uploads' + this.topSong1.song_img
+            // image:  this.apiUrl + 'uploads' + this.topSong1.song_img
           },
           {
             label: this.topSong2.songName,
@@ -76,7 +78,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
             pointHoverRadius: 8,
             // song: this.topSong2.songName,
             // singer: this.topSong2.singers.map(singer => singer.stageName).join(', '),
-            // image: 'http://localhost:8080/symphony/uploads' + this.topSong2.song_img
+            // image: this.apiUrl + 'uploads' + this.topSong2.song_img
           },
           {
             label: this.topSong3.songName,
@@ -90,7 +92,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
             pointHoverRadius: 8,
             // song: this.topSong3.songName,
             // singer: this.topSong3.singers.map(singer => singer.stageName).join(', '),
-            // image: 'http://localhost:8080/symphony/uploads' + this.topSong3.song_img
+            // image: this.apiUrl + 'uploads' + this.topSong3.song_img
           }
         ] as any
       },

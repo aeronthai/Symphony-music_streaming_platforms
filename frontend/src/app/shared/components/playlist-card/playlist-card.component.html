@@ -1,103 +1,194 @@
+<div
+  class="card card-playlist mt-4"
+  style="background-color: var(--black-color)"
+>
+  <div class="card-img-container overflow-hidden rounded-3">
+    <a href="#" class="text-decoration-none">
+      <div class="d-flex flex-column playlist-img-container">
+        <ng-container *ngIf="songImages.length === 0; else hasImages">
+          <!-- Ảnh mặc định khi playlist không có bài hát -->
+          <img
+            class="w-100 rounded-3"
+            [src]="apiUrl + 'uploads/images/other/no-img.png'"
+            alt="Default playlist image"
+          />
+        </ng-container>
 
-   <div class="card card-playlist mt-4" style="background-color: var(--black-color);">
-      <div class="card-img-container overflow-hidden rounded-3">
-        <a href="#" class="text-decoration-none">
-          <div class="d-flex flex-column playlist-img-container">
-            <ng-container *ngIf="songImages.length === 0; else hasImages">
-              <!-- Ảnh mặc định khi playlist không có bài hát -->
-              <img class="w-100 rounded-3" src="http://localhost:8080/symphony/uploads/images/other/no-img.png" alt="Default playlist image">
-            </ng-container>
-          
-            <ng-template #hasImages>
-              <ng-container *ngIf="songImages.length >= 4; else lessThanFour">
-                <div class="d-flex">
-                  <img class="card-img-top card_playlist-img rounded-0 w-50" [src]="'http://localhost:8080/symphony/uploads' + songImages[0]" alt="Song image">
-                  <img class="card-img-top card_playlist-img rounded-0 w-50" [src]="'http://localhost:8080/symphony/uploads' + songImages[1]" alt="Song image">
-                </div>
-                <div class="d-flex">
-                  <img class="card-img-top card_playlist-img rounded-0 w-50" [src]="'http://localhost:8080/symphony/uploads' + songImages[2]" alt="Song image">
-                  <img class="card-img-top card_playlist-img rounded-0 w-50" [src]="'http://localhost:8080/symphony/uploads' + songImages[3]" alt="Song image">
-                </div>
-              </ng-container>
-          
-              <ng-template #lessThanFour>
-                <img class="w-100 rounded-3" [src]="'http://localhost:8080/symphony/uploads' + songImages[0]" *ngIf="songImages.length > 0" alt="Song image">
-              </ng-template>
-            </ng-template>
-          </div>
-          
-        </a>
-        <div class="card-hover-playlist rounded-circle text-center fs-5 lh-lg" (click)="selectPlaylist(true)">
-          <i class="fas fa-play icon-play"></i>
-        </div>
+        <ng-template #hasImages>
+          <ng-container *ngIf="songImages.length >= 4; else lessThanFour">
+            <div class="d-flex">
+              <img
+                class="card-img-top card_playlist-img rounded-0 w-50"
+                [src]="apiUrl + 'uploads' + songImages[0]"
+                alt="Song image"
+              />
+              <img
+                class="card-img-top card_playlist-img rounded-0 w-50"
+                [src]="apiUrl + 'uploads' + songImages[1]"
+                alt="Song image"
+              />
+            </div>
+            <div class="d-flex">
+              <img
+                class="card-img-top card_playlist-img rounded-0 w-50"
+                [src]="apiUrl + 'uploads' + songImages[2]"
+                alt="Song image"
+              />
+              <img
+                class="card-img-top card_playlist-img rounded-0 w-50"
+                [src]="apiUrl + 'uploads' + songImages[3]"
+                alt="Song image"
+              />
+            </div>
+          </ng-container>
+
+          <ng-template #lessThanFour>
+            <img
+              class="w-100 rounded-3"
+              [src]="apiUrl + 'uploads' + songImages[0]"
+              *ngIf="songImages.length > 0"
+              alt="Song image"
+            />
+          </ng-template>
+        </ng-template>
       </div>
-      <div class="card-body ps-0 pe-0">
-        <div class="d-flex justify-content-between align-items-center w-100 px-1">
-          <h6
-            class="card-title card-playlist-name refer flex-grow-1 mb-0" style="width: calc(100% - 10px); color: var(--text_dark_theme-color);">
-            {{ playlist.playlistName }}
-          </h6>
-          
-          <div class="dropdown ms-2" style="width: 10px;">
-            <button class="btn btn-transparent p-0 m-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-ellipsis-vertical text-white-primary"></i>
+    </a>
+    <div
+      class="card-hover-playlist rounded-circle text-center fs-5 lh-lg"
+      (click)="selectPlaylist(true)"
+    >
+      <i class="fas fa-play icon-play"></i>
+    </div>
+  </div>
+  <div class="card-body ps-0 pe-0">
+    <div class="d-flex justify-content-between align-items-center w-100 px-1">
+      <h6
+        class="card-title card-playlist-name refer flex-grow-1 mb-0"
+        style="width: calc(100% - 10px); color: var(--text_dark_theme-color)"
+      >
+        {{ playlist.playlistName }}
+      </h6>
+
+      <div class="dropdown ms-2" style="width: 10px">
+        <button
+          class="btn btn-transparent p-0 m-0"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-ellipsis-vertical text-white-primary"></i>
+        </button>
+        <ul
+          class="dropdown-menu dropdown-menu-end bg-dark_grey-color shadow border-0 mt-1"
+        >
+          <li>
+            <button
+              class="dropdown-item text-white-primary"
+              (click)="selectPlaylist()"
+            >
+              Chi tiết
             </button>
-            <ul class="dropdown-menu dropdown-menu-end bg-dark_grey-color shadow border-0 mt-1">
-              <li>
-                <button class="dropdown-item text-white-primary" (click)="selectPlaylist()">Chi tiết</button>
-              </li>
-              <li>
-                <button class="dropdown-item text-white-primary" data-bs-toggle="modal" [attr.data-bs-target]="'#renameModal' + playlist.playlistId">
-                  Đổi tên
-                </button>
-              </li>
-              <li>
-                <button class="dropdown-item text-white-primary" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal' + playlist.playlistId">
-                  Xóa
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
+          </li>
+          <li>
+            <button
+              class="dropdown-item text-white-primary"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#renameModal' + playlist.playlistId"
+            >
+              Đổi tên
+            </button>
+          </li>
+          <li>
+            <button
+              class="dropdown-item text-white-primary"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#deleteModal' + playlist.playlistId"
+            >
+              Xóa
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
-  
+  </div>
+</div>
+
 <!-- Modal XÓA -->
-<div class="modal fade" id="deleteModal{{ playlist.playlistId }}" #deleteModalRef tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="deleteModal{{ playlist.playlistId }}"
+  #deleteModalRef
+  tabindex="-1"
+  aria-labelledby="deleteModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog custom-modal-position">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0">
         <h5 class="modal-title">Xác nhận xóa</h5>
-        <button type="button" class="btn-close btn-close-white" #deleteButtonRef data-bs-dismiss="modal" aria-label="Đóng"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          #deleteButtonRef
+          data-bs-dismiss="modal"
+          aria-label="Đóng"
+        ></button>
       </div>
       <div class="modal-body">
-        Bạn có chắc chắn muốn xóa playlist "<strong>{{ playlist.playlistName }}</strong>"?
+        Bạn có chắc chắn muốn xóa playlist "<strong>{{
+          playlist.playlistName
+        }}</strong
+        >"?
       </div>
       <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-danger" (click)="confirmDelete()">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+          Xóa
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal ĐỔI TÊN -->
-<div class="modal fade" id="renameModal{{ playlist.playlistId }}" #renameModalRef tabindex="-1" aria-labelledby="renameModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="renameModal{{ playlist.playlistId }}"
+  #renameModalRef
+  tabindex="-1"
+  aria-labelledby="renameModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog custom-modal-position">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header border-0">
         <h5 class="modal-title">Đổi tên playlist</h5>
-        <button type="button" class="btn-close btn-close-white" #renameButtonRef data-bs-dismiss="modal" aria-label="Đóng"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          #renameButtonRef
+          data-bs-dismiss="modal"
+          aria-label="Đóng"
+        ></button>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control" [(ngModel)]="newPlaylistName" placeholder="Nhập tên mới" />
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newPlaylistName"
+          placeholder="Nhập tên mới"
+        />
       </div>
       <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-success" (click)="confirmRename()">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" class="btn btn-success" (click)="confirmRename()">
+          Lưu
+        </button>
       </div>
     </div>
   </div>
 </div>
-

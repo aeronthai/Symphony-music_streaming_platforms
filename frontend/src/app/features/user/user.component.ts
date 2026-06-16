@@ -6,6 +6,7 @@ import { UserDTO } from '../../shared/models/User.dto';
 import { SingerDTO } from '../../shared/models/Singer.dto';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,9 @@ export class UserComponent implements OnInit {
   user!: UserDTO;
   singer: SingerDTO | null = null;
   isLoaded = false;
-  defaultUserImg:string = "http://localhost:8080/symphony/uploads/images/other/no-img.png";
+  apiUrl = environment.apiUrl;
+
+  defaultUserImg:string = this.apiUrl + "uploads/images/other/no-img.png";
 
   notifyContent = "";
   notifyTitle = "";
@@ -61,7 +64,7 @@ export class UserComponent implements OnInit {
         this.user = data.result;
         this.dataShareService.changeTitle(this.user.fullName);
 
-        this.defaultUserImg = "http://localhost:8080/symphony/uploads" + this.user.avatar;
+        this.defaultUserImg = this.apiUrl + "uploads" + this.user.avatar;
         this.fillFormData();
 
         if(this.user.role === "SINGER") {

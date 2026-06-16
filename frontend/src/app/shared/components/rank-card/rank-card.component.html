@@ -10,7 +10,7 @@
         <img
           *ngIf="song"
           (click)="toggleSendSong()"
-          [src]="'http://localhost:8080/symphony/uploads' + song.song_img"
+          [src]="apiUrl + 'uploads' + song.song_img"
           class="rounded-2 product-song-img"
           alt=""
           style="width: 55px; height: 55px; cursor: pointer"

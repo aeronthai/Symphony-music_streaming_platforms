@@ -21,7 +21,7 @@
         <div class="user-img-active-container pe-4">
           <img
             *ngIf="user"
-            [src]="'http://localhost:8080/symphony/uploads' + user.avatar"
+            [src]="apiUrl + 'uploads' + user.avatar"
             alt=""
             class="user-img-active rounded-circle"
           />

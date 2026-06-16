@@ -4,13 +4,13 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SongService } from '../../core/services/song.service';
 import { ResponseData } from '../../shared/models/ResponseData';
 import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { CardComponent } from '../../shared/components/card/card.component';
 import { HttpClient } from '@angular/common/http';
 import { DataShareService } from '../../core/services/dataShare.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { PlaylistService } from '../../core/services/playlist.service';
 import { PlaylistDTO } from '../../shared/models/Playlist.dto';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -32,6 +32,8 @@ export class SongComponent implements OnInit, OnDestroy {
   notifyContent = "";
   notifyTitle = "";
   isSuccess = true;
+
+  apiUrl = environment.apiUrl;
 
 
   constructor(
@@ -63,7 +65,7 @@ export class SongComponent implements OnInit, OnDestroy {
 
         // Tải file lời bài hát nếu có
         if (this.song.lyric) {
-          const lyricPath = 'http://localhost:8080/symphony/uploads' + this.song.lyric;
+          const lyricPath = environment.apiUrl + 'uploads' + this.song.lyric;
           this.loadLyricFile(lyricPath);
         }
         

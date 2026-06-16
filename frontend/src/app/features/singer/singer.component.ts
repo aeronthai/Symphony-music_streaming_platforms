@@ -19,6 +19,7 @@ import { AlbumService } from '../../core/services/album.service';
 import { AlbumCardComponent } from '../../shared/components/album-card/album-card.component';
 import { PlaylistService } from '../../core/services/playlist.service';
 import { PlaylistDTO } from '../../shared/models/Playlist.dto';
+import { environment } from '../../../environments/environment';
 
 declare var bootstrap: any;
 
@@ -36,7 +37,7 @@ export class SingerComponent implements OnInit, OnDestroy {
   @ViewChild('close_update_modal', { static: false }) closeUpdateButton!: ElementRef;
 
 
-  defaultSongImg:string = "http://localhost:8080/symphony/uploads/images/other/no-img.png";
+  defaultSongImg:string = environment.apiUrl + "uploads/images/other/no-img.png";
   songSelectedImg!: string;
   singerId: number | string | null = null;
   singer: SingerDTO = {} as SingerDTO;
@@ -49,6 +50,7 @@ export class SingerComponent implements OnInit, OnDestroy {
   categories!: CategoryDTO[];
   playlists: PlaylistDTO[] = [];
   isLoaded = false;
+  apiUrl = environment.apiUrl;
 
   songForm!: FormGroup;
   musicFile?: File | null;
@@ -253,7 +255,7 @@ export class SingerComponent implements OnInit, OnDestroy {
       this.songImgFile = null;
 
       this.selectedSong = song;
-      this.songSelectedImg = 'http://localhost:8080/symphony/uploads' + song.song_img;
+      this.songSelectedImg = environment.apiUrl + 'uploads' + song.song_img;
 
       if (this.selectedSong) {
         this.editSongForm.patchValue({
@@ -365,7 +367,7 @@ export class SingerComponent implements OnInit, OnDestroy {
         this.lrcFile = null;
         this.lyricFile = null;
         this.songImgFile = null;
-        this.defaultSongImg = "http://localhost:8080/symphony/uploads/images/other/no-img.png";
+        this.defaultSongImg = environment.apiUrl + "uploads/images/other/no-img.png";
 
         this.closeCreateButton.nativeElement.click();
         if(this.singerId) this.loadSingerData(this.singerId);
@@ -600,7 +602,7 @@ export class SingerComponent implements OnInit, OnDestroy {
   songsOfAlbum: SongDTO[] = [];
   quantity = 0;
   selectedImage: File | null = null;
-  defaultAlbumImg:string = "http://localhost:8080/symphony/uploads/images/other/no-img.png";
+  defaultAlbumImg:string = environment.apiUrl + "uploads/images/other/no-img.png";
   notifyContent = "";
   notifyTitle = "";
   isSuccess = true;

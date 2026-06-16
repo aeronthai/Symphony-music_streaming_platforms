@@ -3,6 +3,7 @@ import { DataShareService } from '../../../core/services/dataShare.service';
 import { SongDTO } from '../../models/Song.dto';
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface LyricLine {
   time: number;
@@ -31,6 +32,7 @@ export class LyricComponent implements OnInit, AfterViewInit, OnChanges {
   private previousActiveIndex: number = -1;
 
   private dataLoaded = false;
+  apiUrl = environment.apiUrl;
 
 
   constructor(
@@ -44,7 +46,7 @@ export class LyricComponent implements OnInit, AfterViewInit, OnChanges {
         this.song = data;
         this.dataLoaded = true;
               // Tải lời bài hát
-              const lyricPath = 'http://localhost:8080/symphony/uploads' + this.song.lrc;
+              const lyricPath = this.apiUrl + 'uploads' + this.song.lrc;
               this.loadLyricFile(lyricPath);
       
       }

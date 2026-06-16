@@ -9,6 +9,7 @@ import { SingerDTO } from '../../../shared/models/Singer.dto';
 import { SingerService } from '../../../core/services/singer.service';
 import { ResponseData } from '../../../shared/models/ResponseData';
 import { CategoryDTO } from '../../../shared/models/Category.dto';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-songs',
@@ -33,6 +34,8 @@ export class SongsComponent implements OnInit {
     lrcFileUpd?: File | null;
   lyricFileUpd?: File | null;
   songImgFileUpd?: File | null;
+
+  apiUrl = environment.apiUrl;
 
     songForm!: FormGroup;
   musicFile?: File | null;
@@ -197,7 +200,7 @@ export class SongsComponent implements OnInit {
       this.songImgFile = null;
 
       this.song = song;
-      this.songSelectedImg = 'http://localhost:8080/symphony/uploads' + song.song_img;
+      this.songSelectedImg = this.apiUrl + 'symphony/uploads' + song.song_img;
 
       if (this.song) {
         this.editSongForm.patchValue({

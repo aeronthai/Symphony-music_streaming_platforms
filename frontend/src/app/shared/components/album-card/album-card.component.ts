@@ -6,6 +6,7 @@ import { AlbumService } from '../../../core/services/album.service';
 import { DataShareService } from '../../../core/services/dataShare.service';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-album-card',
@@ -28,6 +29,7 @@ export class AlbumCardComponent implements OnInit {
   newAlbumName: string = '';
   selectedImage: File | null = null;
   defaultAlbumImg!: string;
+  apiUrl = environment.apiUrl;
 
   @ViewChild('deleteButtonRef', { static: false }) closeFormDelete!: ElementRef;
   @ViewChild('renameButtonRef', { static: false }) closeFormUpdate!: ElementRef;
@@ -40,7 +42,7 @@ export class AlbumCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.album?.albumId) {
-      this.defaultAlbumImg = 'http://localhost:8080/symphony/uploads' + this.album.albumImg;
+      this.defaultAlbumImg = this.apiUrl + 'uploads' + this.album.albumImg;
       this.songService.getSongsByAlbumId(this.album.albumId).subscribe({
         next: (data) => {
           this.songs = data.result || [];

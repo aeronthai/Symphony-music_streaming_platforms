@@ -21,7 +21,7 @@
         <div class="col-6 col-lg-3">
           <img
             *ngIf="song"
-            [src]="'http://localhost:8080/symphony/uploads' + song.song_img"
+            [src]="apiUrl + 'uploads' + song.song_img"
             alt=""
             style="height: 62px; width: 62px"
             class="rounded-2"

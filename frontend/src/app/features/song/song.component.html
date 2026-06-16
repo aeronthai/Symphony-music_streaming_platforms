@@ -29,7 +29,7 @@
         <div class="song-img-active-container pe-4">
           <img
             *ngIf="song"
-            [src]="'http://localhost:8080/symphony/uploads' + song.song_img"
+            [src]="apiUrl + 'uploads' + song.song_img"
             alt=""
             class="song-img-active rounded-circle"
           />
@@ -137,13 +137,13 @@
             <p>
               <strong>Lượt nghe: </strong>
               <span *ngIf="song">{{
-                this.song.total_listens | number : "1.0-0"
+                this.song.total_listens | number: "1.0-0"
               }}</span>
             </p>
             <p>
               <strong>Ngày phát hành: </strong>
               <span *ngIf="song">{{
-                this.song.releaseDate | date : "dd/MM/yyyy"
+                this.song.releaseDate | date: "dd/MM/yyyy"
               }}</span>
             </p>
           </div>
@@ -185,7 +185,7 @@
             >
               <img
                 *ngIf="song"
-                [src]="'http://localhost:8080/symphony/uploads' + song.song_img"
+                [src]="apiUrl + 'uploads' + song.song_img"
                 alt=""
                 class="rounded"
                 style="width: 60px; height: 60px"

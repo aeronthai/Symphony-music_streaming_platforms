@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
 
   notifications: NotificationDTO[] = [];
   unreadCount: number = 0;
+  apiUrl = environment.apiUrl;
 
   @Input() user!: UserDTO;
   @Input() singer!: SingerDTO;

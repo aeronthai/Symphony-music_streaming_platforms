@@ -110,9 +110,7 @@
                 <td>{{ song.song_id }}</td>
                 <td>
                   <img
-                    [src]="
-                      'http://localhost:8080/symphony/uploads' + song.song_img
-                    "
+                    [src]="apiUrl + 'uploads' + song.song_img"
                     alt="{{ song.songName }}"
                     style="
                       width: 50px;
@@ -134,7 +132,7 @@
                     {{ cat.category_name }}<span *ngIf="!last">, </span>
                   </span>
                 </td>
-                <td>{{ song.releaseDate | date : "dd/MM/yyyy" }}</td>
+                <td>{{ song.releaseDate | date: "dd/MM/yyyy" }}</td>
                 <td>{{ song.total_listens }}</td>
                 <td>
                   <span

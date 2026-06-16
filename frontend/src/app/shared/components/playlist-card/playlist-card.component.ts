@@ -7,6 +7,7 @@ import { PlaylistService } from '../../../core/services/playlist.service';
 import { FormsModule } from '@angular/forms';
 import { DataShareService } from '../../../core/services/dataShare.service';
 import { error } from 'console';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-playlist-card',
@@ -28,7 +29,7 @@ export class PlaylistCardComponent implements OnInit {
   songs: SongDTO[] = [];
   songImages: string[] = [];
   newPlaylistName: string = '';
-
+  apiUrl = environment.apiUrl;
 
   @ViewChild('deleteButtonRef',  { static: false }) closeFormDelete!: ElementRef;
   @ViewChild('renameButtonRef',  { static: false }) closeFormUpdate!: ElementRef;

@@ -10,6 +10,7 @@ import { NgFor } from '@angular/common';
 import { CardComponent } from '../../shared/components/card/card.component';
 import { NewCardComponent } from '../../shared/components/new-card/new-card.component';
 import { DataShareService } from '../../core/services/dataShare.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   data!: HomeDTO;
   loading = false;
   error: string | null = null;
+
+  apiUrl = environment.apiUrl;
   
   private destroy$ = new Subject<void>();
 

@@ -288,9 +288,7 @@
               <div
                 *ngIf="user"
                 [style.background-image]="
-                  'url(http://localhost:8080/symphony/uploads' +
-                  user.avatar +
-                  ')'
+                  'url(' + apiUrl + 'uploads' + user.avatar + ')'
                 "
                 class="rounded-circle me-5 dropdown-toggle"
                 data-bs-toggle="dropdown"
@@ -304,9 +302,7 @@
                   <div class="d-flex p-3">
                     <img
                       *ngIf="user"
-                      [src]="
-                        'http://localhost:8080/symphony/uploads' + user.avatar
-                      "
+                      [src]="apiUrl + 'uploads' + user.avatar"
                       class="rounded-circle avatarInMenuBar"
                       style="width: 60px; height: 60px"
                       alt=""

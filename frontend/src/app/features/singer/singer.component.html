@@ -21,7 +21,7 @@
         <div class="user-img-active-container pe-4">
           <img
             *ngIf="originUser"
-            [src]="'http://localhost:8080/symphony/uploads' + originUser.avatar"
+            [src]="'{{ apiUrl }}uploads' + originUser.avatar"
             alt=""
             class="user-img-active rounded-circle"
           />
@@ -31,7 +31,7 @@
           class="song-active-info d-flex flex-column-reverse pt-4"
         >
           <p *ngIf="songs" class="text-decoration-none text-white-primary">
-            {{ getTotalListens() | number : "1.0-0" }} lượt nghe
+            {{ getTotalListens() | number: "1.0-0" }} lượt nghe
           </p>
           <h1 class="text-white-primary">{{ singer.stageName }}</h1>
         </div>
@@ -120,7 +120,7 @@
       <div *ngIf="!songs" id="no-list-songs-favorite">
         <img
           id="empty-list-songs-img"
-          src="http://localhost:8080/symphony/uploads/images/other/Empty-songs.png"
+          src="{{ apiUrl }}uploads/images/other/Empty-songs.png"
           alt=""
           class="mx-auto d-block"
         />

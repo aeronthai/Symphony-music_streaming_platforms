@@ -11,6 +11,7 @@ import { PlaylistDTO } from '../../models/Playlist.dto';
 import { DataShareService } from '../../../core/services/dataShare.service';
 import { AlbumDTO } from '../../models/Album.dto';
 import { AlbumService } from '../../../core/services/album.service';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class RowCardComponent {
   @Input()singerAlbums: AlbumDTO[] = [];
 
   selectedSong: SongDTO | TopSongDTO | null = null;
+  apiUrl = environment.apiUrl;
 
   constructor(
     private songService: SongService,

@@ -16,6 +16,7 @@ export class AdminLayoutComponent implements OnInit {
   admin!: UserDTO;
   logo = environment.assetsPath + 'symphony-lighttheme-icon.png';
   currentPage = "";
+  apiUrl = environment.apiUrl;
 
   constructor(
       private authService: AuthService,

@@ -3,6 +3,7 @@ import { SongDTO } from '../../models/Song.dto';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DataShareService } from '../../../core/services/dataShare.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-card',
@@ -12,6 +13,7 @@ import { DataShareService } from '../../../core/services/dataShare.service';
 })
 export class CardComponent {
   @Input() song!: SongDTO;
+  apiUrl = environment.apiUrl;
 
   constructor(private eventSource: DataShareService) {}
 

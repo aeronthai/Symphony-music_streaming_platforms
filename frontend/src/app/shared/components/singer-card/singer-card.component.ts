@@ -5,6 +5,7 @@ import { UserDTO } from '../../models/User.dto';
 import { AuthService } from '../../../core/services/auth.service';
 import { ResponseData } from '../../models/ResponseData';
 import { NgIf } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-singer-card',
@@ -15,6 +16,7 @@ import { NgIf } from '@angular/common';
 export class SingerCardComponent implements OnInit {
   @Input() singer!: SingerDTO;
   user!: UserDTO;
+  apiUrl = environment.apiUrl;
 
   constructor(private authService: AuthService) {}
 

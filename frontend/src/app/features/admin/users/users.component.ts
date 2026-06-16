@@ -7,6 +7,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { UserDTO } from '../../../shared/models/User.dto';
 import { SingerDTO } from '../../../shared/models/Singer.dto';
 import { DataShareService } from '../../../core/services/dataShare.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-users',
@@ -32,7 +33,7 @@ export class UsersComponent implements OnInit {
   singer!: SingerDTO | null;
   isLoaded = false;
   avatarFile?: File | null;
-  defaultUserImg:string = "http://localhost:8080/symphony/uploads/images/other/no-img.png";
+  defaultUserImg:string = environment.apiUrl + "symphony/uploads/images/other/no-img.png";
 
     userForm = new FormGroup({
       fullName: new FormControl('', Validators.required),
@@ -317,7 +318,7 @@ CloseForm() {
 
 SelectUserEdit(user: UserDTO) {
   this.user = user
-  this.defaultUserImg = "http://localhost:8080/symphony/uploads" + user.avatar;
+  this.defaultUserImg = environment.apiUrl + "symphony/uploads" + user.avatar;
   this.fillFormData();
 }
 

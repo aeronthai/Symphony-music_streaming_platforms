@@ -1,8 +1,7 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
-  {
-    path: '**',
-    renderMode: RenderMode.Prerender
-  }
+  { path: 'singer/:id', renderMode: RenderMode.Server },
+  { path: 'song/:id',   renderMode: RenderMode.Server },
+  { path: '**',         renderMode: RenderMode.Server }
 ];
