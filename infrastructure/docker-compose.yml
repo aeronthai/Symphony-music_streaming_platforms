@@ -1,0 +1,42 @@
+name: symphony
+
+services:
+
+  frontend:
+    build:
+      context: ../frontend
+    container_name: symphony-frontend
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - backend
+    restart: "no"
+
+  backend:
+    build:
+      context: ../backend
+    container_name: symphony-backend
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ai-service
+    restart: "no"
+    volumes:
+      - D:/nienluan/Symphony-music-streaming-platforms/backend/uploads:/app/uploads
+
+  ai-service:
+    build:
+      context: ../ai
+    container_name: symphony-ai
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    restart: "no"
+    volumes:
+      - ../backend/uploads:/uploads
+      - ../ai/models:/app/models

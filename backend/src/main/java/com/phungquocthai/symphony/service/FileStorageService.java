@@ -1,5 +1,6 @@
 package com.phungquocthai.symphony.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,8 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class FileStorageService {
-	private final String baseStoragePath = "D:\\nienluan\\Symphony-music-streaming-platforms\\backend\\uploads";
+	@Value("${upload-dir}")
+	private String baseStoragePath;
 	
 	    public String storeFile(MultipartFile file, PathStorage pathStorage) {
 
@@ -49,7 +51,7 @@ public class FileStorageService {
 	            Path filePath = Paths.get(absoluteFilePath).toAbsolutePath().normalize();
 	            
 	            // Kiểm tra xem đường dẫn tệp có hợp lệ và nằm trong phạm vi thư mục cho phép (ví dụ: "D:/uploads/")
-	            Path basePath = Paths.get("D:\\nienluan\\Symphony-music-streaming-platforms\\backend\\uploads").toAbsolutePath().normalize();
+	            Path basePath = Paths.get(this.baseStoragePath).toAbsolutePath().normalize();
 	            if (!filePath.startsWith(basePath)) {
 	                throw new AppException(ErrorCode.FILE_DELETE_PERMISSION_DENIED);
 	            }

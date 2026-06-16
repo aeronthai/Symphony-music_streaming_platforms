@@ -2,13 +2,13 @@
 # WORKDIR /app
 
 # Copy file jar đã build từ máy host vào container
-# COPY target/*.jar app.jar
+# COPY target/*.jar music-streaming-platform-0.0.1-SNAPSHOT.jar
 
 # Expose port Spring Boot (8080)
 # EXPOSE 8080
 
 # Chạy ứng dụng
-# ENTRYPOINT ["java", "-jar", "app.jar"]
+# ENTRYPOINT ["java", "-jar", "music-streaming-platform-0.0.1-SNAPSHOT.jar"]
 
 #
 # Multi-stage Dockerfile for Java Spring Boot application
@@ -36,7 +36,7 @@ COPY src/ src/
 RUN ./mvnw clean package -DskipTests
 
 # Time for some JAR surgery
-RUN jar xf target/app.jar
+RUN jar xf target/music-streaming-platform-0.0.1-SNAPSHOT.jar
 
 # Let jdeps be the detective and figure out what we actually need
 RUN jdeps  \
@@ -45,7 +45,7 @@ RUN jdeps  \
     --multi-release 21 \
     --print-module-deps  \
     --class-path 'BOOT-INF/lib/*' \
-    target/app.jar > deps.info
+    target/music-streaming-platform-0.0.1-SNAPSHOT.jar > deps.info
 
 # Create the minimalist JRE
 # jdk.crypto.ec is for HTTPS, otherwise ignore it
@@ -59,6 +59,8 @@ RUN jlink \
 
 # Stage 2: The lean, mean, production machine
 FROM alpine:3.21.3 AS final
+
+RUN apk add --no-cache ffmpeg
 
 # Set up our custom Java home
 ENV JAVA_HOME=/opt/java/jre-minimalist
@@ -74,7 +76,7 @@ RUN addgroup -S springgroup \
     && chown -R springuser:springgroup /app
 
 # Bring over our precious application
-COPY --from=build /usr/src/project/target/app.jar /app/
+COPY --from=build /usr/src/project/target/music-streaming-platform-0.0.1-SNAPSHOT.jar /app/
 
 WORKDIR /app
 USER springuser
@@ -90,4 +92,4 @@ USER springuser
 # - UseG1GC: Because G1 is the cool garbage collector, fine tune it for your actual usage
 #
 # Add other parameters to tailor to your project's needs
-ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75.0", "-XX:InitialRAMPercentage=50.0", "-XX:MaxMetaspaceSize=512m", "-XX:+UseG1GC", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75.0", "-XX:InitialRAMPercentage=50.0", "-XX:MaxMetaspaceSize=512m", "-XX:+UseG1GC", "-jar", "music-streaming-platform-0.0.1-SNAPSHOT.jar"]

@@ -107,7 +107,7 @@
 	</dependencies>	
 
 	<build>
-		<finalName>app</finalName>
+		<finalName>music-streaming-platform-0.0.1-SNAPSHOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

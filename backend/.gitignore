@@ -22,8 +22,6 @@ logs/
 # Sensitive information
 application-local.properties
 application-secret.properties
-application.properties
-
 
 # Environment files
 .env
